@@ -1,5 +1,5 @@
 {
-  "name": "clipforge",
+  "name": "creaclip",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "@react-email/components": "^1.0.8",
+    "@react-email/render": "^2.0.4",
     "@stripe/stripe-js": "^8.7.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.95.3",

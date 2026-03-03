@@ -10,7 +10,7 @@ export async function sendWelcomeEmail(to: string, userName: string) {
     const { data, error } = await resend.emails.send({
       from: FROM_EMAIL,
       to,
-      subject: 'Bienvenue sur ClipForge ! 🎬',
+      subject: 'Bienvenue sur CreaClip ! 🎬',
       react: WelcomeEmail({ userName }),
     })
 

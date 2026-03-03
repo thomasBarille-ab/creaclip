@@ -7,6 +7,6 @@ if (!process.env.RESEND_API_KEY) {
 export const resend = new Resend(process.env.RESEND_API_KEY)
 
 // Adresses email
-export const FROM_EMAIL = 'ClipForge <noreply@send.creaclip.io>'
-export const CONTACT_EMAIL = 'contact@send.creaclip.io'
-export const SUPPORT_EMAIL = 'support@send.creaclip.io'
+export const FROM_EMAIL = 'CreaClip <noreply@creaclip.io>'
+export const CONTACT_EMAIL = 'contact@creaclip.io'
+export const SUPPORT_EMAIL = 'support@creaclip.io'

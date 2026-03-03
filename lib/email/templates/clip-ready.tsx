@@ -40,7 +40,7 @@ export function ClipReadyEmail({ clipTitle, clipUrl }: ClipReadyEmailProps) {
             </Button>
 
             <Text style={footer}>
-              L'équipe ClipForge
+              L'équipe CreaClip
             </Text>
           </Section>
         </Container>

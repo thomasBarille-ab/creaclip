@@ -374,7 +374,7 @@ async function renderSubtitlePng(
 }
 
 /**
- * Rend un PNG transparent plein écran (1080x1920) avec le texte "Made with ClipForge"
+ * Rend un PNG transparent plein écran (1080x1920) avec le texte "Made with CreaClip"
  * centré, blanc semi-transparent (opacity ~0.3).
  * Utilisé comme overlay FFmpeg pour les utilisateurs free.
  */
@@ -395,7 +395,7 @@ async function renderWatermarkPng(
   ctx.textBaseline = 'middle'
 
   ctx.fillStyle = 'rgba(255, 255, 255, 0.3)'
-  ctx.fillText('Made with ClipForge', width / 2, height / 2)
+  ctx.fillText('Made with CreaClip', width / 2, height / 2)
 
   const blob = await new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((b) => {

@@ -10,14 +10,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'ClipForge — Créez des clips viraux en quelques clics',
-    template: '%s | ClipForge',
+    default: 'CreaClip — Créez des clips viraux en quelques clics',
+    template: '%s | CreaClip',
   },
   description:
-    'ClipForge transforme vos vidéos longues en clips courts et percutants grâce à l\'IA. Transcription automatique, suggestions intelligentes, export en un clic.',
+    'CreaClip transforme vos vidéos longues en clips courts et percutants grâce à l\'IA. Transcription automatique, suggestions intelligentes, export en un clic.',
   keywords: ['clips vidéo', 'IA', 'montage automatique', 'transcription', 'SaaS', 'créateur contenu'],
   openGraph: {
-    title: 'ClipForge — Créez des clips viraux en quelques clics',
+    title: 'CreaClip — Créez des clips viraux en quelques clics',
     description:
       'Transformez vos vidéos longues en clips courts et percutants grâce à l\'IA.',
     type: 'website',

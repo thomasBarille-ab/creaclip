@@ -350,7 +350,7 @@ export function EditorPreview({ videoUrl, subtitleStyle, transcriptionSegments, 
                     className="text-white/30 font-bold select-none"
                     style={{ fontSize: `${Math.max(10, 36 * scale)}px` }}
                   >
-                    Made with ClipForge
+                    Made with CreaClip
                   </span>
                 </div>
               </div>
@@ -360,7 +360,7 @@ export function EditorPreview({ videoUrl, subtitleStyle, transcriptionSegments, 
                   className="text-white/30 font-bold select-none"
                   style={{ fontSize: `${Math.max(10, 36 * scale)}px` }}
                 >
-                  Made with ClipForge
+                  Made with CreaClip
                 </span>
               </div>
             ) : null

@@ -20,14 +20,14 @@ export function WelcomeEmail({ userName }: WelcomeEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Bienvenue sur ClipForge - Créez des clips viraux en quelques clics</Preview>
+      <Preview>Bienvenue sur CreaClip - Créez des clips viraux en quelques clics</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section style={box}>
             <Heading style={heading}>Bienvenue {userName} ! 🎬</Heading>
 
             <Text style={paragraph}>
-              Merci de rejoindre <strong>ClipForge</strong>, la plateforme qui transforme
+              Merci de rejoindre <strong>CreaClip</strong>, la plateforme qui transforme
               vos vidéos longues en clips courts optimisés pour les réseaux sociaux.
             </Text>
 
@@ -42,13 +42,13 @@ export function WelcomeEmail({ userName }: WelcomeEmailProps) {
 
             <Text style={paragraph}>
               Besoin d'aide ? Répondez à cet email ou contactez-nous à{' '}
-              <a href="mailto:support@send.creaclip.io" style={link}>
-                support@send.creaclip.io
+              <a href="mailto:support@creaclip.io" style={link}>
+                support@creaclip.io
               </a>
             </Text>
 
             <Text style={footer}>
-              L'équipe ClipForge
+              L'équipe CreaClip
             </Text>
           </Section>
         </Container>

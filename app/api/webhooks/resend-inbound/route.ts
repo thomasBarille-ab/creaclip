@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     // {
     //   from: "user@example.com",
     //   to: "contact@send.creaclip.io",
-    //   subject: "Question sur ClipForge",
+    //   subject: "Question sur CreaClip",
     //   text: "Contenu du message",
     //   html: "<p>Contenu du message</p>"
     // }
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     // TODO (optionnel) : Envoyer une notification email à l'équipe
     // import { resend } from '@/lib/email/client'
     // await resend.emails.send({
-    //   from: 'ClipForge Notifications <noreply@send.creaclip.io>',
+    //   from: 'CreaClip Notifications <noreply@send.creaclip.io>',
     //   to: 'votre-email@example.com',
     //   subject: `Nouveau message de contact : ${subject}`,
     //   text: `De : ${from}\n\n${text}`

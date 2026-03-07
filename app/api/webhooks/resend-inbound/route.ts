@@ -1,80 +1,64 @@
-import { createClient } from '@/lib/supabase/server'
+import { resend, FROM_EMAIL, CONTACT_EMAIL } from '@/lib/email/client'
 import { NextResponse } from 'next/server'
 
 /**
  * Webhook Resend Inbound
- * Reçoit les emails envoyés à contact@send.creaclip.io
+ * Reçoit les notifications quand un email arrive à *@creaclip.io
+ * Envoie une notification à l'équipe
  */
 export async function POST(request: Request) {
   try {
     const payload = await request.json()
 
-    console.log('Resend Inbound webhook received:', payload)
-
-    // Payload Resend Inbound :
-    // {
-    //   from: "user@example.com",
-    //   to: "contact@send.creaclip.io",
-    //   subject: "Question sur CreaClip",
-    //   text: "Contenu du message",
-    //   html: "<p>Contenu du message</p>"
-    // }
-
-    const { from, to, subject, text, html } = payload
-
-    if (!from || !subject || !text) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      )
+    if (payload.type !== 'email.received') {
+      return NextResponse.json({ success: true })
     }
 
-    // Extraire le nom de l'email si format "Name <email@example.com>"
-    let fromEmail = from
-    let fromName = null
+    const { data } = payload
 
-    const emailMatch = from.match(/^(.+?)\s*<(.+)>$/)
-    if (emailMatch) {
-      fromName = emailMatch[1].trim()
-      fromEmail = emailMatch[2].trim()
+    if (!data?.email_id) {
+      return NextResponse.json({ error: 'Missing email_id' }, { status: 400 })
     }
 
-    // Stocker dans Supabase
-    const supabase = await createClient()
-    const { error } = await supabase.from('contact_messages').insert({
-      from_email: fromEmail,
-      from_name: fromName,
-      subject,
-      message_text: text,
-      message_html: html,
-      received_at: new Date().toISOString(),
+    // Récupérer le contenu complet via le SDK Resend
+    let emailContent: { text?: string; html?: string } = {}
+    try {
+      const { data: fullEmail } = await resend.emails.get(data.email_id)
+      if (fullEmail) {
+        emailContent = { text: fullEmail.text || undefined, html: fullEmail.html || undefined }
+      }
+    } catch (fetchError) {
+      console.error('Error fetching email content:', fetchError)
+    }
+
+    // Extraire nom et email depuis "Name <email@example.com>"
+    const fromRaw = data.from || ''
+    let fromEmail = fromRaw
+    let fromName = ''
+
+    const match = fromRaw.match(/^(.+?)\s*<(.+)>$/)
+    if (match) {
+      fromName = match[1].trim()
+      fromEmail = match[2].trim()
+    }
+
+    // Notification à l'équipe
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: CONTACT_EMAIL,
+      subject: `[Contact] ${data.subject || '(Sans sujet)'}`,
+      html: `
+        <h2>Nouveau message reçu</h2>
+        <p><strong>De :</strong> ${fromName || fromEmail} &lt;${fromEmail}&gt;</p>
+        <p><strong>Sujet :</strong> ${data.subject || '(Sans sujet)'}</p>
+        <hr />
+        <div>${emailContent.html || (emailContent.text ? emailContent.text.replace(/\n/g, '<br />') : '<em>Contenu non disponible</em>')}</div>
+      `,
     })
-
-    if (error) {
-      console.error('Error saving contact message:', error)
-      return NextResponse.json(
-        { error: 'Failed to save message' },
-        { status: 500 }
-      )
-    }
-
-    console.log('Contact message saved successfully')
-
-    // TODO (optionnel) : Envoyer une notification email à l'équipe
-    // import { resend } from '@/lib/email/client'
-    // await resend.emails.send({
-    //   from: 'CreaClip Notifications <noreply@send.creaclip.io>',
-    //   to: 'votre-email@example.com',
-    //   subject: `Nouveau message de contact : ${subject}`,
-    //   text: `De : ${from}\n\n${text}`
-    // })
 
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Webhook error:', error)
-    return NextResponse.json(
-      { error: 'Webhook processing failed' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 })
   }
 }

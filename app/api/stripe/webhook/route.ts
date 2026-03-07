@@ -1,6 +1,12 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { stripe, getPlanFromPriceId } from '@/lib/stripe'
+import {
+  sendSubscriptionStartedEmail,
+  sendSubscriptionChangedEmail,
+  sendSubscriptionCanceledEmail,
+  sendInvoicePaidEmail,
+} from '@/lib/email/send'
 import type Stripe from 'stripe'
 
 export const runtime = 'nodejs'
@@ -17,6 +23,7 @@ const HANDLED_EVENTS = new Set([
   'checkout.session.completed',
   'customer.subscription.updated',
   'customer.subscription.deleted',
+  'invoice.payment_succeeded',
   'invoice.payment_failed',
 ])
 
@@ -60,7 +67,6 @@ export async function POST(request: Request) {
           break
         }
 
-        // subscription can be a string ID or an expanded object
         const subscriptionId = typeof session.subscription === 'string'
           ? session.subscription
           : session.subscription?.id ?? null
@@ -76,6 +82,18 @@ export async function POST(request: Request) {
 
         if (updateErr) {
           console.error('Webhook: failed to update profile for checkout', updateErr)
+          break
+        }
+
+        // Email de confirmation d'abonnement
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('email')
+          .eq('id', userId)
+          .single()
+
+        if (profile?.email) {
+          await sendSubscriptionStartedEmail(profile.email, plan)
         }
 
         break
@@ -85,10 +103,9 @@ export async function POST(request: Request) {
         const subscription = event.data.object as Stripe.Subscription
         const customerId = subscription.customer as string
 
-        // Find the user by stripe_customer_id
         const { data: profile } = await supabase
           .from('profiles')
-          .select('id, plan')
+          .select('id, plan, email')
           .eq('stripe_customer_id', customerId)
           .single()
 
@@ -109,6 +126,11 @@ export async function POST(request: Request) {
                 credits_remaining: 999999,
               })
               .eq('id', profile.id)
+
+            // Email de changement de plan
+            if (profile.email) {
+              await sendSubscriptionChangedEmail(profile.email, profile.plan, newPlan)
+            }
           }
         }
 
@@ -121,7 +143,7 @@ export async function POST(request: Request) {
 
         const { data: profile } = await supabase
           .from('profiles')
-          .select('id')
+          .select('id, email')
           .eq('stripe_customer_id', customerId)
           .single()
 
@@ -138,6 +160,33 @@ export async function POST(request: Request) {
             credits_remaining: 3,
           })
           .eq('id', profile.id)
+
+        // Email d'annulation
+        if (profile.email) {
+          await sendSubscriptionCanceledEmail(profile.email)
+        }
+
+        break
+      }
+
+      case 'invoice.payment_succeeded': {
+        const invoice = event.data.object as Stripe.Invoice
+        const customerId = invoice.customer as string
+
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('id, email, plan')
+          .eq('stripe_customer_id', customerId)
+          .single()
+
+        if (!profile?.email) break
+
+        const amount = invoice.amount_paid
+          ? `${(invoice.amount_paid / 100).toFixed(2)}€`
+          : '0€'
+        const invoiceUrl = invoice.hosted_invoice_url || ''
+
+        await sendInvoicePaidEmail(profile.email, amount, invoiceUrl, profile.plan)
 
         break
       }

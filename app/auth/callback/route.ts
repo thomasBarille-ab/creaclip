@@ -5,10 +5,17 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
   const next = searchParams.get('next') ?? '/dashboard'
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+
+  // Déterminer l'URL externe (Railway passe x-forwarded-host)
+  const forwardedHost = request.headers.get('x-forwarded-host')
+  const forwardedProto = request.headers.get('x-forwarded-proto') || 'https'
+  const baseUrl = forwardedHost
+    ? `${forwardedProto}://${forwardedHost}`
+    : (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000')
+
+  console.log('[Auth Callback] baseUrl:', baseUrl, '| code:', !!code, '| next:', next)
 
   if (code) {
-    // Créer la réponse redirect EN PREMIER pour y attacher les cookies
     const response = NextResponse.redirect(`${baseUrl}${next}`)
 
     const supabase = createServerClient(
@@ -29,10 +36,15 @@ export async function GET(request: NextRequest) {
     )
 
     const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) {
+
+    if (error) {
+      console.error('[Auth Callback] exchangeCodeForSession error:', error.message)
+    } else {
+      console.log('[Auth Callback] Session created, redirecting to:', `${baseUrl}${next}`)
       return response
     }
   }
 
+  console.log('[Auth Callback] No code or error, redirecting to login')
   return NextResponse.redirect(`${baseUrl}/login`)
 }

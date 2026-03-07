@@ -1,7 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
+import { WaitlistForm } from './WaitlistForm'
 
 export function FinalCTA() {
   const { t } = useTranslation()
@@ -16,13 +16,9 @@ export function FinalCTA() {
           {t('landing.finalCta.subtitle')}
         </p>
 
-        <Link
-          href="/signup"
-          className="inline-block rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-12 py-6 text-xl font-bold text-white shadow-2xl transition-transform hover:scale-105 hover:shadow-purple-500/50"
-        >
-          {t('landing.finalCta.cta')}
-          <span className="mt-2 block text-sm font-normal opacity-80">{t('landing.finalCta.ctaSub')}</span>
-        </Link>
+        <div className="flex justify-center">
+          <WaitlistForm />
+        </div>
 
         <div className="mt-12 flex flex-wrap justify-center gap-8 text-slate-400">
           <span>&#10003; {t('landing.finalCta.benefit1')}</span>

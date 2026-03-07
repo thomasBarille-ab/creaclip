@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -20,7 +19,7 @@ export function PricingSection() {
       ],
       caveats: [t('landing.pricing.free.caveats.0')],
       cta: t('landing.pricing.free.cta'),
-      href: '/signup',
+      href: '#hero',
       highlighted: false,
     },
     {
@@ -38,7 +37,7 @@ export function PricingSection() {
       ],
       caveats: [],
       cta: t('landing.pricing.pro.cta'),
-      href: '/signup',
+      href: '#hero',
       highlighted: true,
     },
     {
@@ -55,7 +54,7 @@ export function PricingSection() {
       ],
       caveats: [],
       cta: t('landing.pricing.business.cta'),
-      href: '/signup',
+      href: '#hero',
       highlighted: false,
     },
   ]
@@ -108,7 +107,7 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <Link
+              <a
                 href={plan.href}
                 className={`flex w-full items-center justify-center rounded-xl px-6 py-3 font-semibold transition-all ${
                   plan.highlighted
@@ -117,7 +116,7 @@ export function PricingSection() {
                 }`}
               >
                 {plan.cta}
-              </Link>
+              </a>
 
               {plan.highlighted && (
                 <p className="mt-4 text-center text-sm text-slate-400">

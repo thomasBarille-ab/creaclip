@@ -1,14 +1,14 @@
 'use client'
 
-import Link from 'next/link'
 import { Play, Sparkles, Captions } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { WaitlistForm } from './WaitlistForm'
 
 export function HeroSection() {
   const { t } = useTranslation()
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950">
+    <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-slate-950 to-pink-900/20" />
       <div className="absolute inset-0">
@@ -31,24 +31,8 @@ export function HeroSection() {
               {t('landing.hero.description')}
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/signup"
-                className="rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 text-center font-semibold text-white shadow-lg transition-transform hover:scale-105 hover:shadow-purple-500/50"
-              >
-                {t('landing.hero.cta')}
-                <span className="mt-1 block text-sm font-normal opacity-80">{t('landing.hero.ctaSub')}</span>
-              </Link>
-
-              <a
-                href="#how-it-works"
-                className="flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-8 py-4 font-semibold text-white backdrop-blur-xl transition-colors hover:bg-white/20"
-              >
-                <Play className="h-5 w-5" />
-                {t('landing.hero.demo')}
-              </a>
-            </div>
+            {/* Waitlist */}
+            <WaitlistForm />
 
             {/* Social proof */}
             <div className="flex items-center gap-4 pt-4">

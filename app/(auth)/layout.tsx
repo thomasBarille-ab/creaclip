@@ -11,9 +11,9 @@ export default function AuthLayout({
       <Link href="/" className="mb-10">
         <span className="text-3xl font-bold tracking-tight">
           <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Clip
+            Crea
           </span>
-          <span className="text-white">Forge</span>
+          <span className="text-white">Clip</span>
         </span>
       </Link>
 

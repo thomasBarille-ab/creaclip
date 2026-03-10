@@ -18,6 +18,7 @@ export function Footer() {
 
         <div className="flex items-center gap-6 text-sm text-white/30">
           <a href="#features" className="transition-colors hover:text-white/60">{t('nav.features')}</a>
+          <a href="#how-it-works" className="transition-colors hover:text-white/60">{t('nav.howItWorks')}</a>
           <a href="#pricing" className="transition-colors hover:text-white/60">{t('nav.pricing')}</a>
           <a href="#faq" className="transition-colors hover:text-white/60">{t('nav.faq')}</a>
         </div>

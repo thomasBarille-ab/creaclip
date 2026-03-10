@@ -231,7 +231,7 @@ export function ProductDemo() {
               <div className="h-3 w-3 rounded-full bg-green-500/80" />
             </div>
             <div className="flex-1 rounded-md bg-white/5 px-3 py-1 text-xs text-slate-500">
-              app.creaclip.com
+              creaclip.io
             </div>
           </div>
 

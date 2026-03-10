@@ -119,7 +119,7 @@ export function PhoneMockup() {
         </div>
 
         {/* Subtitles with karaoke effect */}
-        <div className="absolute bottom-[88px] left-3 right-12 z-10">
+        <div className="absolute bottom-[88px] left-3 right-3 z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={lineIndex}

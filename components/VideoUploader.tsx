@@ -28,7 +28,7 @@ function generateThumbnailFromFile(file: File): Promise<Blob> {
 
     const timeout = setTimeout(() => {
       if (!captured) {
-        console.warn('[thumbnail] Timeout — capturing current frame')
+
         captureFrame()
       }
     }, 10000)
@@ -177,7 +177,6 @@ export function VideoUploader() {
         .single()
 
       if (dbError) {
-        console.error('Supabase error:', dbError)
         toast.error(t('upload.errorSaving'))
         setError(t('upload.errorSaving'))
         setUploading(false)
@@ -191,12 +190,8 @@ export function VideoUploader() {
           contentType: 'image/jpeg',
           upsert: true,
         })
-        if (thumbUploadError) {
-          console.error('[thumbnail] Upload error:', thumbUploadError.message)
-        }
-      } catch (thumbErr) {
-        console.error('[thumbnail] Generation error (non-blocking):', thumbErr)
-      }
+        if (thumbUploadError) { /* non-blocking */ }
+      } catch { /* non-blocking */ }
 
       const { data: { publicUrl } } = supabase.storage
         .from('videos')

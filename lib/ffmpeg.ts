@@ -136,21 +136,21 @@ function createWorkerBlobURL(): string {
 }
 
 async function initFFmpeg(): Promise<{ ffmpeg: any; fetchFile: any }> {
-  console.log('[ffmpeg] Importing modules from CDN...')
+
 
   // 1. Importer les modules via import map (résolu par le navigateur)
   const [ffmpegMod, utilMod] = await Promise.all([
     dynamicImport('@ffmpeg/ffmpeg'),
     dynamicImport('@ffmpeg/util'),
   ])
-  console.log('[ffmpeg] Modules imported')
+
 
   const { FFmpeg } = ffmpegMod
   const { toBlobURL, fetchFile } = utilMod
 
   // 2. Créer notre worker inline (tout le code dans un seul blob, pas d'imports relatifs)
   const inlineWorkerURL = createWorkerBlobURL()
-  console.log('[ffmpeg] Inline worker created')
+
 
   // 3. Monkey-patch Worker pour intercepter la création
   const OriginalWorker = globalThis.Worker
@@ -158,7 +158,7 @@ async function initFFmpeg(): Promise<{ ffmpeg: any; fetchFile: any }> {
     constructor(url: string | URL, opts?: WorkerOptions) {
       const urlStr = url instanceof URL ? url.href : url.toString()
       if (urlStr.includes('unpkg.com') || urlStr.includes('ffmpeg')) {
-        console.log('[ffmpeg] Worker intercepted → using inline blob')
+
         super(inlineWorkerURL, { type: 'classic' })
       } else {
         super(url, opts)
@@ -167,20 +167,20 @@ async function initFFmpeg(): Promise<{ ffmpeg: any; fetchFile: any }> {
   } as typeof Worker
 
   // 4. Charger core + wasm comme blob URLs
-  console.log('[ffmpeg] Loading core + wasm...')
+
   const [coreURL, wasmURL] = await Promise.all([
     toBlobURL(`${CORE_BASE}/ffmpeg-core.js`, 'text/javascript'),
     toBlobURL(`${CORE_BASE}/ffmpeg-core.wasm`, 'application/wasm'),
   ])
-  console.log('[ffmpeg] Core + WASM loaded as blob URLs')
+
 
   // 5. Créer et charger FFmpeg
   const ffmpeg = new FFmpeg()
 
   try {
-    console.log('[ffmpeg] Calling ffmpeg.load()...')
+
     await ffmpeg.load({ coreURL, wasmURL })
-    console.log('[ffmpeg] FFmpeg loaded successfully!')
+
   } finally {
     globalThis.Worker = OriginalWorker
   }
@@ -209,7 +209,7 @@ function terminateFFmpeg(): void {
       .then(({ ffmpeg }) => {
         try {
           ffmpeg.terminate()
-          console.log('[ffmpeg] Instance terminated — WASM memory freed')
+
         } catch {
           // ignore
         }
@@ -541,7 +541,7 @@ export async function trimAndConcatSegments({
   }
 
   // Cas multi-segments : construire un filter_complex avec concat
-  console.log('[ffmpeg] Starting multi-segment concat (' + timelineSegments.length + ' segments)')
+
   onProgress?.(2)
   const { ffmpeg, fetchFile } = await getFFmpeg()
 
@@ -553,10 +553,10 @@ export async function trimAndConcatSegments({
       onProgress?.(pct)
     })
 
-    console.log('[ffmpeg] Downloading source video...')
+
     onProgress?.(5)
     let videoData = await fetchFile(videoUrl)
-    console.log('[ffmpeg] Downloaded:', (videoData.byteLength / 1024 / 1024).toFixed(1), 'MB')
+
 
     onProgress?.(10)
     await ffmpeg.writeFile('input.mp4', videoData)
@@ -568,7 +568,7 @@ export async function trimAndConcatSegments({
     // Parser et rendre les sous-titres en PNG
     if (srtContent) {
       subtitleEntries = parseSrtEntries(srtContent)
-      console.log('[ffmpeg] Subtitles:', subtitleEntries.length, 'entries')
+
 
       for (let i = 0; i < subtitleEntries.length; i++) {
         const png = await renderSubtitlePng(subtitleEntries[i].text, subtitleStyle)
@@ -580,7 +580,7 @@ export async function trimAndConcatSegments({
     if (watermark) {
       const wmPng = await renderWatermarkPng()
       await ffmpeg.writeFile('watermark.png', wmPng)
-      console.log('[ffmpeg] Watermark PNG written')
+
     }
 
     const args: string[] = []
@@ -665,11 +665,11 @@ export async function trimAndConcatSegments({
       'output.mp4'
     )
 
-    console.log('[ffmpeg] FFmpeg concat args:', args.join(' '))
+
     await ffmpeg.exec(args)
 
     // Cleanup
-    console.log('[ffmpeg] Exec done, freeing input files...')
+
     try { await ffmpeg.deleteFile('input.mp4') } catch { /* ignore */ }
     for (let i = 0; i < subtitleEntries.length; i++) {
       try { await ffmpeg.deleteFile(`sub_${i}.png`) } catch { /* ignore */ }
@@ -678,7 +678,7 @@ export async function trimAndConcatSegments({
       try { await ffmpeg.deleteFile('watermark.png') } catch { /* ignore */ }
     }
 
-    console.log('[ffmpeg] Reading output...')
+
     const outputData = await ffmpeg.readFile('output.mp4')
     try { await ffmpeg.deleteFile('output.mp4') } catch { /* ignore */ }
 
@@ -692,13 +692,13 @@ export async function trimAndConcatSegments({
     }
 
     const videoBlob = new Blob([videoBytes.buffer as ArrayBuffer], { type: 'video/mp4' })
-    console.log('[ffmpeg] Video blob:', (videoBlob.size / 1024 / 1024).toFixed(1), 'MB')
+
 
     if (videoBlob.size === 0) {
       throw new Error('Le clip généré est vide (0 bytes)')
     }
 
-    console.log('[ffmpeg] Generating thumbnail via Canvas API...')
+
     const thumbnailBlob = await generateThumbnailFromBlob(videoBlob)
 
     return { videoBlob, thumbnailBlob }
@@ -717,7 +717,7 @@ export async function trimAndCropVideo({
   watermark,
   onProgress,
 }: TrimOptions): Promise<TrimResult> {
-  console.log('[ffmpeg] Starting trim...')
+
   onProgress?.(2)
   const { ffmpeg, fetchFile } = await getFFmpeg()
 
@@ -726,14 +726,14 @@ export async function trimAndCropVideo({
   try {
     ffmpeg.on('progress', ({ progress }: { progress: number }) => {
       const pct = Math.min(Math.round(progress * 100), 100)
-      console.log('[ffmpeg] Encoding:', pct, '%')
+
       onProgress?.(pct)
     })
 
-    console.log('[ffmpeg] Downloading source video...')
+
     onProgress?.(5)
     let videoData = await fetchFile(videoUrl)
-    console.log('[ffmpeg] Downloaded:', (videoData.byteLength / 1024 / 1024).toFixed(1), 'MB')
+
 
     onProgress?.(10)
     await ffmpeg.writeFile('input.mp4', videoData)
@@ -741,28 +741,27 @@ export async function trimAndCropVideo({
     videoData = null as any
 
     const duration = endSeconds - startSeconds
-    console.log('[ffmpeg] Exec: trim', startSeconds, '→', endSeconds, '(' + duration + 's)')
+
     onProgress?.(15)
 
     // Parser et rendre les sous-titres en PNG
     if (srtContent) {
       subtitleEntries = parseSrtEntries(srtContent)
-      console.log('[ffmpeg] Subtitles:', subtitleEntries.length, 'entries')
+
 
       for (let i = 0; i < subtitleEntries.length; i++) {
         const png = await renderSubtitlePng(subtitleEntries[i].text, subtitleStyle)
         await ffmpeg.writeFile(`sub_${i}.png`, png)
       }
-      if (subtitleEntries.length > 0) {
-        console.log('[ffmpeg] Subtitle PNGs written to virtual FS')
-      }
+
+
     }
 
     // Watermark PNG (free plan)
     if (watermark) {
       const wmPng = await renderWatermarkPng()
       await ffmpeg.writeFile('watermark.png', wmPng)
-      console.log('[ffmpeg] Watermark PNG written')
+
     }
 
     // Construire les arguments FFmpeg
@@ -844,11 +843,11 @@ export async function trimAndCropVideo({
       'output.mp4'
     )
 
-    console.log('[ffmpeg] FFmpeg args:', args.join(' '))
+
     await ffmpeg.exec(args)
 
     // Libérer la mémoire WASM : supprimer les inputs dès que l'encodage est fini
-    console.log('[ffmpeg] Exec done, freeing input files...')
+
     try { await ffmpeg.deleteFile('input.mp4') } catch { /* ignore */ }
     for (let i = 0; i < subtitleEntries.length; i++) {
       try { await ffmpeg.deleteFile(`sub_${i}.png`) } catch { /* ignore */ }
@@ -858,9 +857,9 @@ export async function trimAndCropVideo({
     }
 
     // Lire l'output
-    console.log('[ffmpeg] Reading output...')
+
     const outputData = await ffmpeg.readFile('output.mp4')
-    console.log('[ffmpeg] readFile byteLength:', outputData?.byteLength, 'length:', outputData?.length)
+
 
     // Supprimer output.mp4 du FS virtuel (la donnée est maintenant en JS)
     try { await ffmpeg.deleteFile('output.mp4') } catch { /* ignore */ }
@@ -876,16 +875,16 @@ export async function trimAndCropVideo({
     }
 
     const videoBlob = new Blob([videoBytes.buffer as ArrayBuffer], { type: 'video/mp4' })
-    console.log('[ffmpeg] Video blob:', (videoBlob.size / 1024 / 1024).toFixed(1), 'MB')
+
 
     if (videoBlob.size === 0) {
       throw new Error('Le clip généré est vide (0 bytes)')
     }
 
     // Générer la miniature via Canvas API (pas de 2ème exec FFmpeg → économise la mémoire WASM)
-    console.log('[ffmpeg] Generating thumbnail via Canvas API...')
+
     const thumbnailBlob = await generateThumbnailFromBlob(videoBlob)
-    console.log('[ffmpeg] Thumbnail blob:', (thumbnailBlob.size / 1024).toFixed(0), 'KB')
+
 
     return { videoBlob, thumbnailBlob }
   } finally {

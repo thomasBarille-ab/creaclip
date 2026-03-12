@@ -127,7 +127,7 @@ function TabEditor() {
       <div className="flex-1 space-y-3">
         {/* Timeline mini */}
         <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-          <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-slate-400">Timeline</p>
+          <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-slate-400">{t('landing.productDemo.tab3Timeline')}</p>
           <div className="flex gap-1">
             {[40, 25, 35].map((w, i) => (
               <div
@@ -164,7 +164,7 @@ function TabEditor() {
 
         {/* Format */}
         <div className="rounded-lg border border-white/10 bg-white/5 p-3">
-          <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-slate-400">Format</p>
+          <p className="mb-2 text-[10px] font-medium uppercase tracking-wider text-slate-400">{t('landing.productDemo.tab3Format')}</p>
           <div className="flex gap-2">
             {['9:16', '1:1', '16:9'].map((f, i) => (
               <div

@@ -141,7 +141,9 @@
       "tab2Sug2": "Why 90% of creators fail",
       "tab2Sug3": "The 3-pillar strategy",
       "tab3Sub": "Live subtitles...",
-      "tab3Style": "Subtitle style"
+      "tab3Style": "Subtitle style",
+      "tab3Timeline": "Timeline",
+      "tab3Format": "Format"
     },
     "howItWorks": {
       "title": "How it works",
@@ -292,6 +294,21 @@
     },
     "footer": {
       "copyright": "\u00a9 {{year}} CreaClip. All rights reserved."
+    },
+    "waitlist": {
+      "placeholder": "your@email.com",
+      "cta": "Join the waitlist",
+      "sending": "Sending...",
+      "successTitle": "You're in!",
+      "successDesc": "We'll notify you as soon as CreaClip is available.",
+      "errorDefault": "An error occurred.",
+      "errorRetry": "An error occurred. Please try again."
+    },
+    "phoneMockup": {
+      "share": "Share",
+      "viralScore": "Viral score",
+      "generated": "Generated",
+      "generatedClips": "4 clips"
     }
   },
 

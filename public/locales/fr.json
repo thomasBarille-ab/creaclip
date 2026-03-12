@@ -141,7 +141,9 @@
       "tab2Sug2": "Pourquoi 90% des créateurs échouent",
       "tab2Sug3": "La stratégie des 3 piliers",
       "tab3Sub": "Sous-titres live...",
-      "tab3Style": "Style sous-titres"
+      "tab3Style": "Style sous-titres",
+      "tab3Timeline": "Timeline",
+      "tab3Format": "Format"
     },
     "howItWorks": {
       "title": "Comment ça marche",
@@ -292,6 +294,21 @@
     },
     "footer": {
       "copyright": "© {{year}} CreaClip. Tous droits réservés."
+    },
+    "waitlist": {
+      "placeholder": "votre@email.com",
+      "cta": "Rejoindre la waitlist",
+      "sending": "Envoi...",
+      "successTitle": "Vous êtes inscrit !",
+      "successDesc": "Nous vous préviendrons dès que CreaClip sera disponible.",
+      "errorDefault": "Une erreur est survenue.",
+      "errorRetry": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "phoneMockup": {
+      "share": "Partager",
+      "viralScore": "Score viral",
+      "generated": "Générés",
+      "generatedClips": "4 clips"
     }
   },
 

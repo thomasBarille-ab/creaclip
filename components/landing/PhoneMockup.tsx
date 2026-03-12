@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 const SUBTITLE_LINES = [
   { words: ['Et', 'c\'est', 'exactement', 'comme', 'ça', 'que', 'j\'ai', 'doublé', 'mon', 'audience'] },
@@ -10,6 +11,7 @@ const SUBTITLE_LINES = [
 ]
 
 export function PhoneMockup() {
+  const { t } = useTranslation()
   const [lineIndex, setLineIndex] = useState(0)
   const [highlightIndex, setHighlightIndex] = useState(0)
 
@@ -103,7 +105,7 @@ export function PhoneMockup() {
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm">
               <span className="text-[10px]">&#8599;</span>
             </div>
-            <span className="mt-0.5 text-[8px] font-semibold text-white/70">Share</span>
+            <span className="mt-0.5 text-[8px] font-semibold text-white/70">{t('landing.phoneMockup.share')}</span>
           </div>
         </div>
 
@@ -171,7 +173,7 @@ export function PhoneMockup() {
             <span className="text-xs">&#9733;</span>
           </div>
           <div>
-            <p className="text-[10px] text-slate-400">Score viral</p>
+            <p className="text-[10px] text-slate-400">{t('landing.phoneMockup.viralScore')}</p>
             <p className="text-sm font-bold text-orange-400">9.2/10</p>
           </div>
         </div>
@@ -189,8 +191,8 @@ export function PhoneMockup() {
             <span className="text-xs">&#9889;</span>
           </div>
           <div>
-            <p className="text-[10px] text-slate-400">Générés</p>
-            <p className="text-sm font-bold text-amber-400">4 clips</p>
+            <p className="text-[10px] text-slate-400">{t('landing.phoneMockup.generated')}</p>
+            <p className="text-sm font-bold text-amber-400">{t('landing.phoneMockup.generatedClips')}</p>
           </div>
         </div>
       </motion.div>

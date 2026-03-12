@@ -30,7 +30,7 @@ export function Navbar() {
             href="#hero"
             className="rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105"
           >
-            Rejoindre la waitlist
+            {t('landing.waitlist.cta')}
           </a>
         </div>
       </div>

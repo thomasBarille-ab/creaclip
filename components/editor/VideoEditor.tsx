@@ -254,7 +254,6 @@ function EditorContent({
         .single()
 
       if (clipError || !clip) {
-        console.error('Supabase error:', clipError)
         toast.error(t('editor.errors.createError'))
         setGenerating(null)
         return
@@ -301,7 +300,6 @@ function EditorContent({
         })
 
       if (uploadError) {
-        console.error('Upload error:', uploadError)
         toast.error(t('editor.errors.uploadError'))
         throw new Error(t('editor.errors.uploadError'))
       }
@@ -314,9 +312,7 @@ function EditorContent({
             contentType: 'image/jpeg',
             upsert: true,
           })
-        if (thumbUploadError) {
-          console.error('[clip-thumb] Upload error:', thumbUploadError.message)
-        } else {
+        if (thumbUploadError) { /* non-blocking */ } else {
           finalThumbPath = thumbStoragePath
         }
       }
@@ -349,7 +345,6 @@ function EditorContent({
         router.push('/clips')
       }, 1500)
     } catch (err) {
-      console.error('Clip generation error:', err)
       const errMsg = err instanceof Error ? err.message : t('editor.errors.generateError')
       setError(errMsg)
       toast.error(errMsg)

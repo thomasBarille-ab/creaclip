@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Check } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
@@ -16,11 +15,10 @@ export function PricingSection() {
         t('landing.pricing.free.features.0'),
         t('landing.pricing.free.features.1'),
         t('landing.pricing.free.features.2'),
-        t('landing.pricing.free.features.3'),
       ],
       caveats: [t('landing.pricing.free.caveats.0')],
       cta: t('landing.pricing.free.cta'),
-      href: '/signup',
+      href: '#hero',
       highlighted: false,
     },
     {
@@ -33,12 +31,10 @@ export function PricingSection() {
         t('landing.pricing.pro.features.1'),
         t('landing.pricing.pro.features.2'),
         t('landing.pricing.pro.features.3'),
-        t('landing.pricing.pro.features.4'),
-        t('landing.pricing.pro.features.5'),
       ],
       caveats: [],
       cta: t('landing.pricing.pro.cta'),
-      href: '/signup',
+      href: '#hero',
       highlighted: true,
     },
     {
@@ -50,12 +46,10 @@ export function PricingSection() {
         t('landing.pricing.business.features.1'),
         t('landing.pricing.business.features.2'),
         t('landing.pricing.business.features.3'),
-        t('landing.pricing.business.features.4'),
-        t('landing.pricing.business.features.5'),
       ],
       caveats: [],
       cta: t('landing.pricing.business.cta'),
-      href: '/signup',
+      href: '#hero',
       highlighted: false,
     },
   ]
@@ -76,12 +70,12 @@ export function PricingSection() {
               key={plan.name}
               className={`relative rounded-2xl p-8 backdrop-blur-xl ${
                 plan.highlighted
-                  ? 'border-2 border-purple-500 bg-white/5'
+                  ? 'border-2 border-orange-500 bg-white/5'
                   : 'border border-white/10 bg-white/5'
               }`}
             >
               {plan.badge && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-1 text-sm font-semibold">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-orange-600 to-amber-600 px-4 py-1 text-sm font-semibold">
                   &#11088; {plan.badge}
                 </div>
               )}
@@ -108,22 +102,17 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <Link
+              <a
                 href={plan.href}
                 className={`flex w-full items-center justify-center rounded-xl px-6 py-3 font-semibold transition-all ${
                   plan.highlighted
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:scale-105'
+                    ? 'bg-gradient-to-r from-orange-600 to-amber-600 text-white shadow-lg hover:scale-105'
                     : 'border border-white/20 bg-white/10 text-white hover:bg-white/20'
                 }`}
               >
                 {plan.cta}
-              </Link>
+              </a>
 
-              {plan.highlighted && (
-                <p className="mt-4 text-center text-sm text-slate-400">
-                  {t('landing.pricing.guarantee')}
-                </p>
-              )}
             </div>
           ))}
         </div>

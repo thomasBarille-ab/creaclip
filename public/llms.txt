@@ -1,0 +1,50 @@
+# CreaClip
+
+> CreaClip is an AI-powered SaaS tool that transforms long-form videos into short, viral clips for TikTok, Instagram Reels, and YouTube Shorts.
+
+## What CreaClip Does
+
+CreaClip helps content creators turn long videos (podcasts, interviews, vlogs, streams) into multiple short-form clips optimized for social media. The platform uses AI to:
+
+1. **Transcribe** videos automatically using Whisper AI
+2. **Detect** the most engaging moments with AI-powered analysis
+3. **Generate** clips with customizable subtitles, cropping to 9:16 vertical format
+4. **Export** ready-to-post clips for TikTok, Instagram Reels, and YouTube Shorts
+
+## Key Features
+
+- Automatic video transcription
+- AI-powered clip suggestions with viral score ranking
+- Live preview editor with Premiere Pro-style timeline
+- Karaoke-style animated subtitles (word-by-word highlight)
+- Multi-segment editing (split, trim, reorder)
+- Custom subtitle styling (font, size, color, outline, position)
+- Multi-format export (9:16, 1:1, 16:9)
+- Client-side video processing (FFmpeg WASM) — videos stay private
+- Compatible with TikTok, Instagram Reels, YouTube Shorts
+
+## Pricing
+
+- **Free**: 3 clips/month, watermark, live preview, multi-format export
+- **Pro** ($24/month): 50 clips/month, no watermark, all features, live preview
+- **Business** ($49/month): Everything in Pro + 200 clips/month, individual persona
+
+## Use Cases
+
+- Podcasters extracting highlights for social media promotion
+- YouTubers repurposing long videos into Shorts
+- Streamers creating TikTok clips from Twitch/YouTube streams
+- Coaches and educators sharing key moments from webinars
+- Social media managers creating content at scale
+
+## Competitors & Alternatives
+
+CreaClip is an alternative to OpusClip, Vizard.ai, Descript, Kapwing, and Submagic. Unlike most competitors, CreaClip processes video client-side for maximum privacy.
+
+## Website
+
+https://creaclip.com
+
+## Contact
+
+For more information, visit https://creaclip.com

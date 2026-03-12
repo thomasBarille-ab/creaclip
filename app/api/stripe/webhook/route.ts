@@ -76,7 +76,7 @@ export async function POST(request: Request) {
           .update({
             plan,
             stripe_subscription_id: subscriptionId,
-            credits_remaining: 999999,
+            credits_remaining: null,
           })
           .eq('id', userId)
 
@@ -123,7 +123,7 @@ export async function POST(request: Request) {
               .from('profiles')
               .update({
                 plan: newPlan,
-                credits_remaining: 999999,
+                credits_remaining: null,
               })
               .eq('id', profile.id)
 

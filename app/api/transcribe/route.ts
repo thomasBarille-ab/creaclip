@@ -35,8 +35,6 @@ export async function POST(request: Request) {
     )
   }
 
-  console.log('[transcribe] User authenticated:', user.id)
-
   // 2. Parse body
   let videoId: string
   try {
@@ -72,8 +70,6 @@ export async function POST(request: Request) {
     )
   }
 
-  console.log('[transcribe] Video found:', video.id, '| path:', video.storage_path)
-
   // 4. Obtenir signed URL depuis Supabase Storage
   const { data: signedUrl, error: urlError } = await supabase.storage
     .from('videos')
@@ -86,8 +82,6 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-
-  console.log('[transcribe] Signed URL generated OK')
 
   // 5. Créer job de tracking
   const jobInsert: ProcessingJobInsert = {
@@ -115,8 +109,6 @@ export async function POST(request: Request) {
       { status: 500 }
     )
   }
-
-  console.log('[transcribe] Job created:', job.id, '— calling Replicate...')
 
   // 6. Mettre la vidéo en status 'processing'
   await supabase

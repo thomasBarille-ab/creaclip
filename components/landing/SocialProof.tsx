@@ -64,7 +64,7 @@ export function SocialProof() {
               className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
             >
               <div className="mb-4 flex items-start gap-4">
-                <div className="h-12 w-12 shrink-0 rounded-full bg-gradient-to-br from-purple-500 to-pink-500" />
+                <div className="h-12 w-12 shrink-0 rounded-full bg-gradient-to-br from-orange-500 to-amber-500" />
                 <div>
                   <strong className="block text-white">{testimonial.name}</strong>
                   <span className="text-sm text-slate-400">
@@ -88,7 +88,7 @@ export function SocialProof() {
         <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {STATS.map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="mb-2 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-4xl font-bold text-transparent">
+              <div className="mb-2 bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-4xl font-bold text-transparent">
                 {stat.value}
               </div>
               <div className="text-slate-400">{stat.label}</div>

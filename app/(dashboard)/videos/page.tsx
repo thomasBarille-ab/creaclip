@@ -119,7 +119,6 @@ export default function VideosPage() {
       setVideos((prev) => prev.filter((v) => v.id !== video.id))
       toast.success(t('videos.videoDeleted'))
     } catch (err) {
-      console.error('Delete error:', err)
       toast.error(err instanceof Error ? err.message : t('videos.deleteError'))
     } finally {
       setDeletingId(null)
@@ -141,11 +140,10 @@ export default function VideosPage() {
         await loadVideos()
       } else {
         const result = await response.json()
-        console.error('Transcription error:', result.error)
+
         toast.error(result.error ?? t('videos.transcriptionError'))
       }
     } catch (err) {
-      console.error('Transcription error:', err)
       toast.error(err instanceof Error ? err.message : t('videos.transcriptionError'))
     } finally {
       setTranscribingId(null)
@@ -169,7 +167,6 @@ export default function VideosPage() {
 
       const { error } = await supabase.from('clips').delete().eq('id', clip.id)
       if (error) {
-        console.error('Delete clip error:', error)
         toast.error(t('videos.deleteClipError'))
         return
       }
@@ -183,7 +180,6 @@ export default function VideosPage() {
       )
       toast.success(t('videos.clipDeleted'))
     } catch (err) {
-      console.error('Delete clip error:', err)
       toast.error(err instanceof Error ? err.message : t('videos.deleteError'))
     } finally {
       setDeletingClipId(null)

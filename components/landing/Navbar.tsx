@@ -11,10 +11,10 @@ export function Navbar() {
     <nav className="fixed top-0 z-50 w-full border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-8">
         <Link href="/" className="text-xl font-bold tracking-tight">
-          <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-            Clip
+          <span className="bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
+            Crea
           </span>
-          <span className="text-white">Forge</span>
+          <span className="text-white">Clip</span>
         </Link>
 
         <div className="hidden items-center gap-8 text-sm text-white/60 md:flex">
@@ -25,19 +25,13 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-3">
-          <LanguageSwitcher className="hidden sm:block" dropUp={false} />
-          <Link
-            href="/login"
-            className="hidden text-sm font-medium text-white/70 transition-colors hover:text-white sm:block"
+          <LanguageSwitcher dropUp={false} />
+          <a
+            href="#hero"
+            className="rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105"
           >
-            {t('nav.login')}
-          </Link>
-          <Link
-            href="/signup"
-            className="rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:scale-105"
-          >
-            {t('nav.freeTrial')}
-          </Link>
+            {t('landing.waitlist.cta')}
+          </a>
         </div>
       </div>
     </nav>

@@ -19,7 +19,7 @@ export function FAQ() {
     <section id="faq" className="bg-slate-950 py-20">
       <div className="mx-auto max-w-3xl px-6">
         <div className="mb-14 text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-purple-400">{t('landing.faq.label')}</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-orange-400">{t('landing.faq.label')}</p>
           <h2 className="text-3xl font-bold text-white md:text-4xl">
             {t('landing.faq.title')}
           </h2>
@@ -29,7 +29,7 @@ export function FAQ() {
           {QUESTIONS.map(({ q, a }) => (
             <details
               key={q}
-              className="group rounded-xl border border-white/10 bg-white/[0.03] transition-colors hover:border-white/15 [&[open]]:border-purple-500/20 [&[open]]:bg-purple-500/[0.03]"
+              className="group rounded-xl border border-white/10 bg-white/[0.03] transition-colors hover:border-white/15 [&[open]]:border-orange-500/20 [&[open]]:bg-orange-500/[0.03]"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 px-6 py-4 text-left font-medium text-white marker:content-none [&::-webkit-details-marker]:hidden">
                 {q}

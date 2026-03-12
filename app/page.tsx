@@ -1,8 +1,9 @@
 import {
   Navbar,
   HeroSection,
-  ProblemSolution,
-  FeaturesSection,
+  LogoBar,
+  ProductDemo,
+  HowItWorks,
   PricingSection,
   FAQ,
   FinalCTA,
@@ -14,8 +15,9 @@ export default function HomePage() {
     <div className="min-h-screen">
       <Navbar />
       <HeroSection />
-      <ProblemSolution />
-      <FeaturesSection />
+      {/* <LogoBar /> */}
+      <ProductDemo />
+      <HowItWorks />
       <PricingSection />
       <FAQ />
       <FinalCTA />

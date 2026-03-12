@@ -46,7 +46,7 @@
   "auth": {
     "login": {
       "title": "Iniciar sesión",
-      "subtitle": "Acceda a su espacio ClipForge",
+      "subtitle": "Acceda a su espacio CreaClip",
       "email": "Email",
       "emailPlaceholder": "usted@ejemplo.com",
       "password": "Contraseña",
@@ -114,17 +114,49 @@
 
   "landing": {
     "hero": {
-      "headline1": "Transforma tus vídeos largos",
-      "headline2": "en clips virales",
-      "description": "La IA que crea tus clips de TikTok, Reels y Shorts automáticamente. Tú la guías, ella ejecuta. Validación en vivo. Exportación multiformato.",
+      "headline1": "1 vídeo",
+      "headline2": "10 clips virales",
+      "headline3": "0 esfuerzo",
+      "description": "CreaClip analiza tu vídeo, detecta los mejores momentos y genera clips para TikTok, Reels y Shorts con subtítulos automáticamente.",
       "cta": "Crear mis primeros clips",
       "ctaSub": "Gratis — 10 clips",
       "demo": "Ver la demo (1 min)",
       "socialProofCount": "+2.5K",
-      "socialProofText": "creadores usan ClipForge",
+      "socialProofText": "creadores en la waitlist",
       "socialProofRating": "4.9/5",
       "videoSource": "Vídeo fuente",
       "clip": "Clip {{num}}"
+    },
+    "logoBar": {
+      "label": "Compatible con tus plataformas"
+    },
+    "productDemo": {
+      "title": "Mira CreaClip en acción",
+      "subtitle": "Del import al export, todo sucede en tu navegador.",
+      "tab1": "Import",
+      "tab2": "Sugerencias IA",
+      "tab3": "Editor",
+      "tab1Progress": "Transcribiendo...",
+      "tab2Sug1": "El hack de crecimiento explosivo",
+      "tab2Sug2": "Por qué el 90% de los creadores fracasan",
+      "tab2Sug3": "La estrategia de los 3 pilares",
+      "tab3Sub": "Subtítulos en vivo...",
+      "tab3Style": "Estilo subtítulos",
+      "tab3Timeline": "Timeline",
+      "tab3Format": "Formato"
+    },
+    "howItWorks": {
+      "title": "Cómo funciona",
+      "subtitle": "3 pasos. Cero complicaciones.",
+      "step1Title": "Importa",
+      "step1Desc": "Arrastra tu vídeo. CreaClip lo transcribe automáticamente.",
+      "step1Badge": "~30 seg",
+      "step2Title": "Selecciona",
+      "step2Desc": "La IA identifica los mejores momentos. Tú eliges.",
+      "step2Badge": "~2 min",
+      "step3Title": "Exporta",
+      "step3Desc": "Personaliza subtítulos, ajusta el encuadre, exporta en 1 clic.",
+      "step3Badge": "~1 min"
     },
     "problem": {
       "title": "El problema",
@@ -136,7 +168,7 @@
       "item3Desc": "90% de los clips autogenerados son inutilizables"
     },
     "solution": {
-      "title": "La solución ClipForge",
+      "title": "La solución CreaClip",
       "step1Title": "Tú guías",
       "step1Desc": "Resalta tus mejores pasajes (30 seg)",
       "step2Title": "La IA ejecuta",
@@ -155,18 +187,31 @@
       "feature1Title": "Preselección guiada",
       "feature1Desc": "Tú conoces tus mejores momentos mejor que la IA. Guíala, ella genera únicamente ahí.",
       "feature1Bad": "OpusClip: 90% de clips inútiles",
-      "feature1Good": "ClipForge: 100% útiles",
+      "feature1Good": "CreaClip: 100% útiles",
+      "feature1Badge": "Tú guías la IA",
+      "feature1Without": "Sin CreaClip",
+      "feature1With": "Con CreaClip",
+      "feature1Usable": "aprovechables",
       "feature2Title": "Vista previa en vivo con edición",
       "feature2Desc": "Valida ANTES de generar. Edita subtítulos en tiempo real. No desperdicies más créditos.",
       "feature2Bad": "Vizard: Sin vista previa",
-      "feature2Good": "ClipForge: Edición en vivo",
+      "feature2Good": "CreaClip: Edición en vivo",
+      "feature2Badge": "Edición en tiempo real",
+      "feature2SubPreview": "Subtítulos en vivo...",
+      "feature2StyleLabel": "Estilo",
+      "feature2SizeLabel": "Tamaño",
+      "feature2ColorLabel": "Color",
+      "feature2Editing": "Editando...",
       "feature3Title": "Exportación multiformato en 1 clic",
       "feature3Desc": "TikTok, Instagram, YouTube... Todos los formatos en 1 clic. No exportes 3 veces el mismo clip.",
       "feature3Bad": "Descript: Exportación manual",
-      "feature3Good": "ClipForge: Auto multiformato"
+      "feature3Good": "CreaClip: Auto multiformato",
+      "feature3Badge": "1 clic, 3 plataformas",
+      "feature3SelectAll": "Seleccionar todo",
+      "feature3Export": "Exportar (3 formatos)"
     },
     "socialProof": {
-      "title": "Ya crean sus clips en ClipForge",
+      "title": "Ya crean sus clips en CreaClip",
       "stat1Value": "2,500+",
       "stat1Label": "Creadores activos",
       "stat2Value": "45,000+",
@@ -184,7 +229,7 @@
       "testimonial2Name": "Jean Martin",
       "testimonial2Handle": "@jean_podcast",
       "testimonial2Followers": "Podcaster",
-      "testimonial2Quote": "La vista previa en vivo = se acabaron los clips fallidos. OpusClip me generaba 20, de los cuales 18 eran inútiles. ClipForge: 100% aprovechables.",
+      "testimonial2Quote": "La vista previa en vivo = se acabaron los clips fallidos. OpusClip me generaba 20, de los cuales 18 eran inútiles. CreaClip: 100% aprovechables.",
       "testimonial2Stat1": "127 clips",
       "testimonial2Stat2": "150€ ahorrados",
       "testimonial3Name": "Julie Leroy",
@@ -202,31 +247,31 @@
       "free": {
         "name": "Free",
         "price": "0",
-        "description": "Para descubrir ClipForge",
-        "features": ["10 clips / mes", "Todas las funcionalidades", "Vista previa en vivo", "Exportación multiformato"],
-        "caveats": ["Marca de agua ClipForge"],
+        "description": "Para descubrir CreaClip",
+        "features": ["3 clips / mes", "Vista previa en vivo", "Exportación multiformato"],
+        "caveats": ["Marca de agua CreaClip"],
         "cta": "Empezar gratis"
       },
       "pro": {
         "name": "Pro",
-        "price": "24",
+        "price": "29",
         "description": "Para creadores serios",
-        "features": ["Clips ilimitados", "Sin marca de agua", "Todos los estilos de subtítulos", "Plantillas personalizadas", "Soporte prioritario", "Historial ilimitado"],
+        "features": ["50 clips / mes", "Sin marca de agua", "Todas las funcionalidades", "Vista previa en vivo"],
         "cta": "Pasar a Pro"
       },
       "business": {
         "name": "Business",
         "price": "49",
-        "description": "Para equipos",
-        "features": ["Todo Pro +", "Equipo (5 miembros)", "White label", "API access", "Account manager dedicado", "Facturas personalizadas"],
-        "cta": "Contáctenos"
+        "description": "Para creadores ambiciosos",
+        "features": ["Todo Pro +", "200 clips / mes", "Persona individual", "Y mucho más"],
+        "cta": "Pasar a Business"
       }
     },
     "faq": {
       "label": "FAQ",
       "title": "Preguntas frecuentes",
       "q1": "¿Qué formatos de vídeo son compatibles?",
-      "a1": "ClipForge acepta archivos MP4, MOV y AVI de hasta 500 MB. La mayoría de los vídeos de smartphones, cámaras y software de grabación funcionan directamente.",
+      "a1": "CreaClip acepta archivos MP4, MOV y AVI de hasta 500 MB. La mayoría de los vídeos de smartphones, cámaras y software de grabación funcionan directamente.",
       "q2": "¿Cuánto tiempo tarda la generación de un clip?",
       "a2": "La transcripción suele tardar de 1 a 3 minutos según la duración del vídeo. La generación del clip se realiza en pocos segundos directamente en su navegador.",
       "q3": "¿Mis vídeos se almacenan de forma segura?",
@@ -240,15 +285,30 @@
     },
     "finalCta": {
       "title": "¿Listo para crear tus primeros clips?",
-      "subtitle": "Únete a 2,500+ creadores que ahorran 28h al mes",
+      "subtitle": "",
       "cta": "Crear mis clips gratis",
       "ctaSub": "10 clips gratis · Sin tarjeta",
       "benefit1": "Sin tarjeta de crédito",
-      "benefit2": "10 clips gratis",
+      "benefit2": "3 clips gratis",
       "benefit3": "Cancelación en 1 clic"
     },
     "footer": {
-      "copyright": "© {{year}} ClipForge. Todos los derechos reservados."
+      "copyright": "© {{year}} CreaClip. Todos los derechos reservados."
+    },
+    "waitlist": {
+      "placeholder": "su@email.com",
+      "cta": "Unirse a la waitlist",
+      "sending": "Enviando...",
+      "successTitle": "¡Estás inscrito!",
+      "successDesc": "Te avisaremos en cuanto CreaClip esté disponible.",
+      "errorDefault": "Ha ocurrido un error.",
+      "errorRetry": "Ha ocurrido un error. Por favor, inténtelo de nuevo."
+    },
+    "phoneMockup": {
+      "share": "Compartir",
+      "viralScore": "Puntuación viral",
+      "generated": "Generados",
+      "generatedClips": "4 clips"
     }
   },
 
@@ -449,7 +509,7 @@
       "planFree": "Gratuito",
       "planPro": "Pro",
       "planBusiness": "Business",
-      "freeDesc": "Para descubrir ClipForge",
+      "freeDesc": "Para descubrir CreaClip",
       "proDesc": "Para creadores serios",
       "businessDesc": "Para equipos",
       "freeFeatures": ["10 clips / mes", "Todas las funcionalidades", "Vista previa en vivo", "Exportación multiformato"],
@@ -497,7 +557,7 @@
 
   "onboarding": {
     "welcome": {
-      "title": "Bienvenido a ClipForge!",
+      "title": "Bienvenido a CreaClip!",
       "description": "Transforma tus vídeos largos en clips cortos y virales gracias a la IA."
     },
     "stats": {
@@ -594,7 +654,7 @@
     "unlimited": "Ilimitado",
     "upgrade": "Pasar a Pro",
     "searchProOnly": "La búsqueda por prompt está disponible en los planes Pro y Business. Actualice para desbloquear esta función.",
-    "watermarkNotice": "Plan Free — Se añadirá una marca de agua ClipForge. Pase a Pro para eliminarla.",
+    "watermarkNotice": "Plan Free — Se añadirá una marca de agua CreaClip. Pase a Pro para eliminarla.",
     "limitReached": "Límite alcanzado: {{used}}/{{limit}} clips este mes. Pase a Pro para clips ilimitados.",
     "clipQuota": "{{used}}/{{limit}} clips este mes"
   },

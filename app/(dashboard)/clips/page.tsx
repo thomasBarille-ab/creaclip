@@ -98,7 +98,6 @@ export default function ClipsPage() {
         .eq('id', clipId)
 
       if (error) {
-        console.error('Update error:', error)
         toast.error(t('clips.updateError'))
         return
       }
@@ -112,8 +111,7 @@ export default function ClipsPage() {
       )
       setEditingId(null)
       toast.success(t('clips.clipUpdated'))
-    } catch (err) {
-      console.error('Save error:', err)
+    } catch {
       toast.error(t('clips.updateError'))
     } finally {
       setSavingId(null)
@@ -140,7 +138,6 @@ export default function ClipsPage() {
       // Supprimer row DB
       const { error } = await supabase.from('clips').delete().eq('id', clip.id)
       if (error) {
-        console.error('Delete clip error:', error)
         toast.error(t('clips.deleteClipError'))
         return
       }
@@ -148,7 +145,6 @@ export default function ClipsPage() {
       setClips((prev) => prev.filter((c) => c.id !== clip.id))
       toast.success(t('clips.clipDeleted'))
     } catch (err) {
-      console.error('Delete clip error:', err)
       toast.error(err instanceof Error ? err.message : t('clips.deleteError'))
     } finally {
       setDeletingId(null)

@@ -333,7 +333,10 @@
     "noVideosDesc": "Empiece importando su primer vídeo",
     "noClips": "Ningún clip generado",
     "noClipsDesc": "Sus clips aparecerán aquí una vez generados",
-    "import": "Importar"
+    "import": "Importar",
+    "greeting": "Bienvenido, {{name}}",
+    "greetingNoName": "Bienvenido",
+    "today": "Aquí tienes tu resumen del día."
   },
 
   "videos": {
@@ -356,7 +359,8 @@
     "transcriptionStarted": "Transcripción iniciada!",
     "deleteError": "Error al eliminar",
     "deleteClipError": "Error al eliminar el clip",
-    "transcriptionError": "Error durante la transcripción"
+    "transcriptionError": "Error durante la transcripción",
+    "retry": "Reintentar"
   },
 
   "clips": {
@@ -387,6 +391,9 @@
     "dropzoneActive": "Suelte su vídeo aquí",
     "browseFiles": "o haga clic para explorar",
     "formats": "MP4, MOV, AVI — 500 MB máximo",
+    "stepSelect": "Selección",
+    "stepUpload": "Subida",
+    "stepProcessing": "Procesamiento",
     "importButton": "Importar el vídeo",
     "uploading": "Subiendo... {{progress}}%",
     "saving": "Guardando...",
@@ -472,7 +479,11 @@
       "finalizeError": "Error al finalizar el clip",
       "generateError": "Error al generar el clip"
     },
-    "toastSuccess": "Clip creado con éxito!"
+    "toastSuccess": "Clip creado con éxito!",
+    "confirmGenerate": "¿Generar clip?",
+    "confirmGenerateDesc": "Vas a generar un clip de {{duration}} con {{segments}} segmento(s).",
+    "confirmGenerateSubtitles": "Subtítulos activados",
+    "confirmGenerateNoSubtitles": "Sin subtítulos"
   },
 
   "subtitles": {
@@ -495,7 +506,17 @@
     "case": "Mayúsculas",
     "background": "Fondo",
     "backgroundNone": "No",
-    "backgroundBox": "Caja"
+    "backgroundBox": "Caja",
+    "style": "Estilo",
+    "bold": "Negrita",
+    "italic": "Cursiva",
+    "shadow": "Sombra",
+    "shadowColor": "Color",
+    "shadowBlur": "Desenfoque",
+    "shadowOffset": "Desplazamiento",
+    "colors": "Colores",
+    "positionAndBg": "Posición y Fondo",
+    "bgColor": "Color de fondo"
   },
 
   "settings": {

@@ -24,7 +24,6 @@ export function EditorPreview({ videoUrl, subtitleStyle, transcriptionSegments, 
 
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const rafRef = useRef<number>(0)
-  const seekingRef = useRef(false)
   const activeSegmentIndexRef = useRef(0)
   const previewContainerRef = useRef<HTMLDivElement>(null)
 
@@ -127,25 +126,22 @@ export function EditorPreview({ videoUrl, subtitleStyle, transcriptionSegments, 
   )
 
   // Synchroniser la vidéo quand le playhead change (hors lecture)
+  const playheadTimeRef = useRef(state.playheadTime)
+  playheadTimeRef.current = state.playheadTime
+  const playingRef = useRef(playing)
+  playingRef.current = playing
+
   useEffect(() => {
-    if (playing || seekingRef.current) return
+    if (playing) return
     const video = videoRef.current
     if (!video) return
 
     const pos = timelineToSourcePosition(state.playheadTime)
     if (!pos) return
 
-    if (Math.abs(video.currentTime - pos.sourceTime) > 0.1) {
-      seekingRef.current = true
-      activeSegmentIndexRef.current = pos.segmentIndex
-
-      const handleSeeked = () => {
-        seekingRef.current = false
-        video.removeEventListener('seeked', handleSeeked)
-      }
-      video.addEventListener('seeked', handleSeeked)
-      video.currentTime = pos.sourceTime
-    }
+    activeSegmentIndexRef.current = pos.segmentIndex
+    // Toujours forcer le seek — le browser skip si c'est déjà la bonne frame
+    video.currentTime = pos.sourceTime
   }, [state.playheadTime, playing, timelineToSourcePosition])
 
   // Boucle de lecture
@@ -250,10 +246,12 @@ export function EditorPreview({ videoUrl, subtitleStyle, transcriptionSegments, 
   const fontSize = Math.max(12, FONT_SIZE_MAP[subtitleStyle.fontSize].canvas * scale)
   const strokeWidth = Math.max(1, subtitleStyle.strokeWidth * scale)
 
+  const shadowScale = scale
   const subtitleCss: CSSProperties = {
     fontFamily: `'${subtitleStyle.fontFamily}', sans-serif`,
     fontSize: `${fontSize}px`,
-    fontWeight: 'bold',
+    fontWeight: subtitleStyle.fontWeight ?? 'bold',
+    fontStyle: subtitleStyle.fontStyle ?? 'normal',
     color: subtitleStyle.textColor,
     textAlign: 'center',
     lineHeight: 1.3,
@@ -262,6 +260,9 @@ export function EditorPreview({ videoUrl, subtitleStyle, transcriptionSegments, 
     borderRadius: subtitleStyle.background === 'box' ? `${6 * scale}px` : undefined,
     WebkitTextStroke: subtitleStyle.strokeWidth > 0 ? `${strokeWidth}px ${subtitleStyle.strokeColor}` : undefined,
     paintOrder: 'stroke fill',
+    textShadow: subtitleStyle.shadow
+      ? `${(subtitleStyle.shadowOffsetX ?? 2) * shadowScale}px ${(subtitleStyle.shadowOffsetY ?? 2) * shadowScale}px ${(subtitleStyle.shadowBlur ?? 4) * shadowScale}px ${subtitleStyle.shadowColor ?? '#000000'}`
+      : undefined,
   }
 
   const positionClass =

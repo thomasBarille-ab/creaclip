@@ -68,13 +68,8 @@ export function TimelineSegment({ segment, timelineStart, videoUrl }: TimelineSe
           : 'ring-1 ring-white/20 hover:ring-white/30'
       )}
       style={{ left, width: Math.max(width, 20) }}
-      onClick={(e) => {
+      onClick={() => {
         dispatch({ type: 'SELECT_SEGMENT', id: segment.id })
-        // Aussi positionner le playhead à l'endroit cliqué dans le segment
-        const rect = e.currentTarget.getBoundingClientRect()
-        const relX = e.clientX - rect.left
-        const clickTime = timelineStart + relX / pixelsPerSecond
-        dispatch({ type: 'SET_PLAYHEAD', time: Math.max(timelineStart, Math.min(timelineStart + duration, clickTime)) })
       }}
     >
       {/* Thumbnails */}

@@ -32,8 +32,8 @@ export function ConfirmModal({
       <div className="p-6">
         <div className="mb-4 flex items-center gap-3">
           {Icon && (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500/20">
-              <Icon className="h-5 w-5 text-red-400" />
+            <div className={`flex h-10 w-10 items-center justify-center rounded-full ${confirmVariant === 'primary' ? 'bg-orange-500/20' : 'bg-red-500/20'}`}>
+              <Icon className={`h-5 w-5 ${confirmVariant === 'primary' ? 'text-orange-400' : 'text-red-400'}`} />
             </div>
           )}
           <h3 className="text-lg font-bold text-white">{title}</h3>

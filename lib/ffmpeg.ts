@@ -296,6 +296,13 @@ async function renderSubtitlePng(
   const showBackground = style?.background === 'box'
   const bgColor = style?.backgroundColor ?? 'rgba(0,0,0,0.6)'
   const isUppercase = style?.textTransform === 'uppercase'
+  const fontWeight = style?.fontWeight ?? 'bold'
+  const fontStyle = style?.fontStyle ?? 'normal'
+  const hasShadow = style?.shadow ?? false
+  const shadowColor = style?.shadowColor ?? '#000000'
+  const shadowBlur = style?.shadowBlur ?? 4
+  const shadowOffsetX = style?.shadowOffsetX ?? 2
+  const shadowOffsetY = style?.shadowOffsetY ?? 2
 
   const displayText = isUppercase ? text.toUpperCase() : text
 
@@ -306,7 +313,9 @@ async function renderSubtitlePng(
 
   ctx.clearRect(0, 0, width, height)
 
-  ctx.font = `bold ${fontSize}px '${fontFamily}', sans-serif`
+  const fontStyleStr = fontStyle === 'italic' ? 'italic' : ''
+  const fontWeightStr = fontWeight === 'bold' ? 'bold' : 'normal'
+  ctx.font = `${fontStyleStr} ${fontWeightStr} ${fontSize}px '${fontFamily}', sans-serif`.trim()
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
 
@@ -347,22 +356,39 @@ async function renderSubtitlePng(
     ctx.fill()
   }
 
+  // Configure shadow if enabled
+  if (hasShadow) {
+    ctx.shadowColor = shadowColor
+    ctx.shadowBlur = shadowBlur
+    ctx.shadowOffsetX = shadowOffsetX
+    ctx.shadowOffsetY = shadowOffsetY
+  }
+
   for (let i = 0; i < lines.length; i++) {
     const y = startY + i * lineHeight
     const x = width / 2
 
-    // Contour
+    // Contour (draw without shadow, shadow applies to fill only)
     if (strokeWidth > 0 && strokeColor !== 'transparent') {
+      const savedShadowColor = ctx.shadowColor
+      ctx.shadowColor = 'transparent'
       ctx.strokeStyle = strokeColor
       ctx.lineWidth = strokeWidth
       ctx.lineJoin = 'round'
       ctx.strokeText(lines[i], x, y)
+      ctx.shadowColor = savedShadowColor
     }
 
     // Remplissage
     ctx.fillStyle = textColor
     ctx.fillText(lines[i], x, y)
   }
+
+  // Reset shadow
+  ctx.shadowColor = 'transparent'
+  ctx.shadowBlur = 0
+  ctx.shadowOffsetX = 0
+  ctx.shadowOffsetY = 0
 
   const blob = await new Promise<Blob>((resolve, reject) => {
     canvas.toBlob((b) => {

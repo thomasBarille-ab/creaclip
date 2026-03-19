@@ -4,7 +4,7 @@ import { useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDropzone, type FileRejection } from 'react-dropzone'
 import { useRouter } from 'next/navigation'
-import { CloudUpload, Film, X, CircleCheck } from 'lucide-react'
+import { CloudUpload, Film, X, CircleCheck, FileVideo, Upload, Cog } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { uploadWithProgress } from '@/lib/uploadWithProgress'
 import {
@@ -225,8 +225,71 @@ export function VideoUploader() {
     setSuccess(false)
   }
 
+  const currentStep = success ? 2 : uploading ? 1 : file ? 0 : -1
+  const STEPS = [
+    { key: 'select', labelKey: 'upload.stepSelect', icon: FileVideo },
+    { key: 'upload', labelKey: 'upload.stepUpload', icon: Upload },
+    { key: 'processing', labelKey: 'upload.stepProcessing', icon: Cog },
+  ] as const
+
   return (
     <div className="space-y-6">
+      {/* Stepper */}
+      <div className="flex items-center justify-center gap-0">
+        {STEPS.map((step, i) => {
+          const StepIcon = step.icon
+          const isCompleted = i < currentStep || (i === currentStep && success)
+          const isActive = i === currentStep && !success
+          return (
+            <div key={step.key} className="flex items-center">
+              {i > 0 && (
+                <div
+                  className={cn(
+                    'h-0.5 w-12 sm:w-20 transition-colors duration-500',
+                    i <= currentStep ? 'bg-orange-500' : 'bg-white/10'
+                  )}
+                />
+              )}
+              <div className="flex flex-col items-center gap-1.5">
+                <div
+                  className={cn(
+                    'flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-500',
+                    isCompleted
+                      ? 'border-emerald-500 bg-emerald-500/20'
+                      : isActive
+                        ? 'border-orange-500 bg-orange-500/20 animate-pulse'
+                        : 'border-white/20 bg-white/5'
+                  )}
+                >
+                  {isCompleted ? (
+                    <CircleCheck className="h-5 w-5 text-emerald-400" />
+                  ) : (
+                    <StepIcon
+                      className={cn(
+                        'h-5 w-5',
+                        isActive ? 'text-orange-400' : 'text-white/30'
+                      )}
+                    />
+                  )}
+                </div>
+                <span
+                  className={cn(
+                    'text-xs font-medium',
+                    isCompleted
+                      ? 'text-emerald-400'
+                      : isActive
+                        ? 'text-orange-400'
+                        : 'text-white/30'
+                  )}
+                >
+                  {t(step.labelKey)}
+                </span>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+
       {/* Dropzone */}
       {!success && (
         <div
@@ -235,7 +298,7 @@ export function VideoUploader() {
             'relative flex min-h-[400px] cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed text-center transition-all duration-300',
             uploading && 'pointer-events-none',
             isDragActive
-              ? 'border-orange-500 bg-orange-500/10 scale-[1.01]'
+              ? 'border-orange-500 bg-orange-500/10 scale-[1.02] shadow-[0_0_40px_rgba(249,115,22,0.15)]'
               : 'border-white/20 hover:border-orange-500/50 hover:bg-white/5'
           )}
         >
@@ -244,8 +307,19 @@ export function VideoUploader() {
           {/* Idle */}
           {!file && !uploading && (
             <div className="flex flex-col items-center gap-4 px-6">
-              <div className="rounded-2xl bg-white/10 p-5">
-                <CloudUpload className="h-12 w-12 text-orange-400" />
+              <div
+                className={cn(
+                  'rounded-2xl p-5 transition-all duration-300',
+                  isDragActive
+                    ? 'bg-orange-500/20 scale-110'
+                    : 'bg-white/10'
+                )}
+              >
+                {isDragActive ? (
+                  <Film className="h-12 w-12 animate-bounce text-orange-400" />
+                ) : (
+                  <CloudUpload className="h-12 w-12 text-orange-400" />
+                )}
               </div>
               {isDragActive ? (
                 <p className="text-lg font-semibold text-orange-300">
@@ -261,9 +335,12 @@ export function VideoUploader() {
                       {t('upload.browseFiles')}
                     </p>
                   </div>
-                  <p className="text-sm text-white/40">
-                    {t('upload.formats')}
-                  </p>
+                  <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2">
+                    <FileVideo className="h-4 w-4 text-white/40" />
+                    <p className="text-sm font-medium text-white/50">
+                      {t('upload.formats')}
+                    </p>
+                  </div>
                 </>
               )}
             </div>
@@ -334,7 +411,10 @@ export function VideoUploader() {
       {/* Success */}
       {success && (
         <div className="flex min-h-[400px] flex-col items-center justify-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/10">
-          <CircleCheck className="h-16 w-16 text-emerald-400" />
+          <div className="relative">
+            <CircleCheck className="h-16 w-16 text-emerald-400 animate-[scale-in_0.5s_ease-out]" />
+            <div className="absolute inset-0 animate-ping rounded-full bg-emerald-400/20" />
+          </div>
           <div className="text-center">
             <p className="text-xl font-semibold text-white">
               {t('upload.successTitle')}

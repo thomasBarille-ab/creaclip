@@ -118,7 +118,8 @@ export function SubtitlePreview({
   const subtitleCss: React.CSSProperties = {
     fontFamily: `'${style.fontFamily}', sans-serif`,
     fontSize: `${fontSize}px`,
-    fontWeight: 'bold',
+    fontWeight: style.fontWeight ?? 'bold',
+    fontStyle: style.fontStyle ?? 'normal',
     color: style.textColor,
     textAlign: 'center',
     lineHeight: 1.3,
@@ -127,6 +128,9 @@ export function SubtitlePreview({
     borderRadius: style.background === 'box' ? `${6 * scale}px` : undefined,
     WebkitTextStroke: style.strokeWidth > 0 ? `${strokeWidth}px ${style.strokeColor}` : undefined,
     paintOrder: 'stroke fill',
+    textShadow: style.shadow
+      ? `${(style.shadowOffsetX ?? 2) * scale}px ${(style.shadowOffsetY ?? 2) * scale}px ${(style.shadowBlur ?? 4) * scale}px ${style.shadowColor ?? '#000000'}`
+      : undefined,
   }
 
   // Position du container de sous-titres

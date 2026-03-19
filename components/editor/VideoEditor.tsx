@@ -3,12 +3,12 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
-import { Pencil, AlignLeft, Hash, Clock, TrendingUp, Crop, Check, Loader2, AlignHorizontalJustifyStart, AlignHorizontalJustifyCenter, AlignHorizontalJustifyEnd, Scissors, Trash2, Undo2, Redo2, Play, Pause, RotateCcw } from 'lucide-react'
+import { Pencil, AlignLeft, Hash, Clock, TrendingUp, Crop, Check, Loader2, AlignHorizontalJustifyStart, AlignHorizontalJustifyCenter, AlignHorizontalJustifyEnd, Scissors, Trash2, Undo2, Redo2, Play, Pause, RotateCcw, Sparkles } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { trimAndConcatSegments } from '@/lib/ffmpeg'
 import { generateSrtForSegments } from '@/lib/generateSrt'
 import { formatTime, cn } from '@/lib/utils'
-import { Input, Textarea, AlertBanner, ProgressBar, useToast } from '@/components/ui'
+import { Input, Textarea, AlertBanner, ProgressBar, ConfirmModal, useToast } from '@/components/ui'
 import { CollapsibleBlock } from '@/components/CollapsibleBlock'
 import { SubtitleEditor } from '@/components/SubtitleEditor'
 import { EditorProvider, useEditor } from './EditorProvider'
@@ -103,7 +103,7 @@ function TimelineActions({ generating }: { generating: boolean }) {
         <button
           onClick={() => dispatch({ type: 'SPLIT_AT_PLAYHEAD' })}
           disabled={!canSplit || generating}
-          title={t('editor.toolbar.split')}
+          title={`${t('editor.toolbar.split')} (S)`}
           className={cn(
             'flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition-all',
             canSplit && !generating
@@ -138,6 +138,7 @@ function TimelineActions({ generating }: { generating: boolean }) {
             dispatch({ type: 'SET_PLAYHEAD', time: 0 })
             dispatch({ type: 'SET_PLAYING', playing: false })
           }}
+          title={t('editor.toolbar.undo') ? 'Retour au début' : 'Reset'}
           className="flex h-7 w-7 items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/10 hover:text-white"
         >
           <RotateCcw className="h-3.5 w-3.5" />
@@ -145,7 +146,7 @@ function TimelineActions({ generating }: { generating: boolean }) {
 
         <button
           onClick={() => dispatch({ type: 'SET_PLAYING', playing: !playing })}
-          title={`${playing ? 'Pause' : 'Lecture'} (${t('editor.toolbar.split') ? 'Espace' : 'Space'})`}
+          title={`${playing ? 'Pause' : 'Lecture'} (Espace)`}
           className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/10 text-white transition-all hover:bg-white/20"
         >
           {playing ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5 ml-0.5" />}
@@ -179,6 +180,7 @@ function EditorContent({
   const [clipHashtags, setClipHashtags] = useState(suggestion.hashtags.join(', '))
   const [generating, setGenerating] = useState<GeneratingState | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [showConfirmGenerate, setShowConfirmGenerate] = useState(false)
 
   // Panneaux redimensionnables
   const [leftWidth, setLeftWidth] = useState(400)
@@ -294,6 +296,10 @@ function EditorContent({
             type: 'SET_PLAYHEAD',
             time: Math.min(totalDuration, state.playheadTime + (e.shiftKey ? 5 : 1)),
           })
+          break
+        case 'KeyS':
+          e.preventDefault()
+          dispatch({ type: 'SPLIT_AT_PLAYHEAD' })
           break
         case 'Delete':
         case 'Backspace':
@@ -496,7 +502,7 @@ function EditorContent({
       {/* Toolbar */}
       <EditorToolbar
         onClose={onClose}
-        onGenerate={handleGenerate}
+        onGenerate={() => setShowConfirmGenerate(true)}
         generating={isGenerating}
         generatingDone={isDone}
         generatingLabel={generating ? t(STEP_LABEL_KEYS[generating.step]) : null}
@@ -512,19 +518,47 @@ function EditorContent({
         </div>
       )}
 
-      {/* Barre de progression */}
+      {/* Modal de confirmation avant génération */}
+      <ConfirmModal
+        open={showConfirmGenerate}
+        onClose={() => setShowConfirmGenerate(false)}
+        onConfirm={() => {
+          setShowConfirmGenerate(false)
+          handleGenerate()
+        }}
+        title={t('editor.confirmGenerate')}
+        description={t('editor.confirmGenerateDesc', {
+          duration: formatTime(totalDuration),
+          segments: state.segments.length,
+        }) + ' ' + (subtitleStyle.enabled ? t('editor.confirmGenerateSubtitles') : t('editor.confirmGenerateNoSubtitles')) + '.'}
+        confirmLabel={t('editor.toolbar.generate')}
+        confirmVariant="primary"
+        icon={Sparkles}
+      />
+
+      {/* Modal de progression */}
       {generating && (
-        <div className="flex-shrink-0 px-4 py-2 bg-slate-900/50">
-          <ProgressBar
-            progress={generating.progress}
-            label={t(STEP_LABEL_KEYS[generating.step])}
-            sublabel={`${generating.progress}%`}
-            icon={
-              isDone
-                ? <Check className="h-4 w-4" />
-                : <Loader2 className="h-4 w-4 animate-spin" />
-            }
-          />
+        <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="w-full max-w-md mx-4 rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
+            <div className="mb-4 flex flex-col items-center gap-3 text-center">
+              {isDone ? (
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/20">
+                  <Check className="h-6 w-6 text-green-400" />
+                </div>
+              ) : (
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500/20">
+                  <Loader2 className="h-6 w-6 animate-spin text-orange-400" />
+                </div>
+              )}
+              <h3 className="text-lg font-semibold text-white">
+                {t(STEP_LABEL_KEYS[generating.step])}
+              </h3>
+            </div>
+            <ProgressBar
+              progress={generating.progress}
+              sublabel={`${generating.progress}%`}
+            />
+          </div>
         </div>
       )}
 
@@ -661,9 +695,15 @@ function EditorContent({
 
         {/* Séparateur gauche */}
         <div
-          className="flex-shrink-0 w-1.5 cursor-col-resize bg-white/5 hover:bg-orange-500/30 active:bg-orange-500/50 transition-colors"
+          className="flex-shrink-0 w-2 cursor-col-resize bg-white/5 hover:bg-orange-500/30 active:bg-orange-500/50 transition-colors flex items-center justify-center group/resize"
           onMouseDown={(e) => handleResizeStart('left', e)}
-        />
+        >
+          <div className="flex flex-col gap-1 opacity-0 group-hover/resize:opacity-100 transition-opacity">
+            <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+            <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+            <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+          </div>
+        </div>
 
         {/* Centre : Preview */}
         <div data-onboarding-editor="editor-preview" className="overflow-hidden p-4 h-full flex-1 min-w-0">
@@ -677,9 +717,15 @@ function EditorContent({
 
         {/* Séparateur droite */}
         <div
-          className="flex-shrink-0 w-1.5 cursor-col-resize bg-white/5 hover:bg-orange-500/30 active:bg-orange-500/50 transition-colors"
+          className="flex-shrink-0 w-2 cursor-col-resize bg-white/5 hover:bg-orange-500/30 active:bg-orange-500/50 transition-colors flex items-center justify-center group/resize"
           onMouseDown={(e) => handleResizeStart('right', e)}
-        />
+        >
+          <div className="flex flex-col gap-1 opacity-0 group-hover/resize:opacity-100 transition-opacity">
+            <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+            <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+            <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+          </div>
+        </div>
 
         {/* Panneau droite : Sous-titres */}
         <div data-onboarding-editor="editor-subtitles" className="overflow-y-auto flex-shrink-0 p-4" style={{ width: rightWidth }}>
@@ -689,9 +735,15 @@ function EditorContent({
 
       {/* Séparateur timeline */}
       <div
-        className="flex-shrink-0 h-1.5 cursor-row-resize bg-white/5 hover:bg-orange-500/30 active:bg-orange-500/50 transition-colors"
+        className="flex-shrink-0 h-2 cursor-row-resize bg-white/5 hover:bg-orange-500/30 active:bg-orange-500/50 transition-colors flex items-center justify-center group/resize"
         onMouseDown={handleTimelineResizeStart}
-      />
+      >
+        <div className="flex gap-1 opacity-0 group-hover/resize:opacity-100 transition-opacity">
+          <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+          <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+          <div className="w-0.5 h-0.5 rounded-full bg-white/40" />
+        </div>
+      </div>
 
       {/* Timeline + actions */}
       <div data-onboarding-editor="editor-timeline" className="flex flex-shrink-0 flex-col border-t border-white/10 bg-slate-900/50 mb-4" style={{ height: timelineHeight }}>

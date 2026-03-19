@@ -9,6 +9,8 @@ const inter = Inter({
   subsets: ['latin'],
 })
 
+const GOOGLE_FONTS_URL = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&family=Bebas+Neue&family=Oswald:wght@400;700&display=swap'
+
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://creaclip.com'
 
 export const metadata: Metadata = {
@@ -178,6 +180,9 @@ export default function RootLayout({
   return (
     <html lang="fr" className="dark">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={GOOGLE_FONTS_URL} />
         <script
           type="importmap"
           dangerouslySetInnerHTML={{

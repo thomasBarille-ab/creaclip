@@ -333,7 +333,10 @@
     "noVideosDesc": "Start by importing your first video",
     "noClips": "No clips generated",
     "noClipsDesc": "Your clips will appear here once generated",
-    "import": "Import"
+    "import": "Import",
+    "greeting": "Welcome back, {{name}}",
+    "greetingNoName": "Welcome back",
+    "today": "Here's your overview for today."
   },
 
   "videos": {
@@ -356,7 +359,8 @@
     "transcriptionStarted": "Transcription started!",
     "deleteError": "Error during deletion",
     "deleteClipError": "Error deleting clip",
-    "transcriptionError": "Error during transcription"
+    "transcriptionError": "Error during transcription",
+    "retry": "Retry"
   },
 
   "clips": {
@@ -387,6 +391,9 @@
     "dropzoneActive": "Drop your video here",
     "browseFiles": "or click to browse",
     "formats": "MP4, MOV, AVI — 500 MB maximum",
+    "stepSelect": "Selection",
+    "stepUpload": "Upload",
+    "stepProcessing": "Processing",
     "importButton": "Import video",
     "uploading": "Uploading... {{progress}}%",
     "saving": "Saving...",
@@ -472,7 +479,11 @@
       "finalizeError": "Error finalizing the clip",
       "generateError": "Error generating the clip"
     },
-    "toastSuccess": "Clip created successfully!"
+    "toastSuccess": "Clip created successfully!",
+    "confirmGenerate": "Generate clip?",
+    "confirmGenerateDesc": "You are about to generate a clip of {{duration}} with {{segments}} segment(s).",
+    "confirmGenerateSubtitles": "Subtitles enabled",
+    "confirmGenerateNoSubtitles": "Without subtitles"
   },
 
   "subtitles": {
@@ -495,7 +506,17 @@
     "case": "Case",
     "background": "Background",
     "backgroundNone": "None",
-    "backgroundBox": "Box"
+    "backgroundBox": "Box",
+    "style": "Style",
+    "bold": "Bold",
+    "italic": "Italic",
+    "shadow": "Shadow",
+    "shadowColor": "Color",
+    "shadowBlur": "Blur",
+    "shadowOffset": "Offset",
+    "colors": "Colors",
+    "positionAndBg": "Position & Background",
+    "bgColor": "Background color"
   },
 
   "settings": {

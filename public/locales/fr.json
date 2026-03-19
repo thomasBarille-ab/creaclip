@@ -333,7 +333,10 @@
     "noVideosDesc": "Commencez par importer votre première vidéo",
     "noClips": "Aucun clip généré",
     "noClipsDesc": "Vos clips apparaîtront ici une fois générés",
-    "import": "Importer"
+    "import": "Importer",
+    "greeting": "Bon retour, {{name}}",
+    "greetingNoName": "Bon retour",
+    "today": "Voici votre aperçu du jour."
   },
 
   "videos": {
@@ -356,7 +359,8 @@
     "transcriptionStarted": "Transcription lancée !",
     "deleteError": "Erreur lors de la suppression",
     "deleteClipError": "Erreur lors de la suppression du clip",
-    "transcriptionError": "Erreur lors de la transcription"
+    "transcriptionError": "Erreur lors de la transcription",
+    "retry": "Réessayer"
   },
 
   "clips": {
@@ -387,6 +391,9 @@
     "dropzoneActive": "Déposez votre vidéo ici",
     "browseFiles": "ou cliquez pour parcourir",
     "formats": "MP4, MOV, AVI — 500 Mo maximum",
+    "stepSelect": "Sélection",
+    "stepUpload": "Import",
+    "stepProcessing": "Traitement",
     "importButton": "Importer la vidéo",
     "uploading": "Envoi en cours... {{progress}}%",
     "saving": "Enregistrement...",
@@ -472,7 +479,11 @@
       "finalizeError": "Erreur lors de la finalisation du clip",
       "generateError": "Erreur lors de la génération du clip"
     },
-    "toastSuccess": "Clip créé avec succès !"
+    "toastSuccess": "Clip créé avec succès !",
+    "confirmGenerate": "Générer le clip ?",
+    "confirmGenerateDesc": "Vous allez générer un clip de {{duration}} avec {{segments}} segment(s).",
+    "confirmGenerateSubtitles": "Sous-titres activés",
+    "confirmGenerateNoSubtitles": "Sans sous-titres"
   },
 
   "subtitles": {
@@ -495,7 +506,17 @@
     "case": "Casse",
     "background": "Fond",
     "backgroundNone": "Non",
-    "backgroundBox": "Box"
+    "backgroundBox": "Box",
+    "style": "Style",
+    "bold": "Gras",
+    "italic": "Italique",
+    "shadow": "Ombre",
+    "shadowColor": "Couleur",
+    "shadowBlur": "Flou",
+    "shadowOffset": "Décalage",
+    "colors": "Couleurs",
+    "positionAndBg": "Position & Fond",
+    "bgColor": "Couleur du fond"
   },
 
   "settings": {

@@ -9,6 +9,13 @@ export interface SubtitleStyle {
   textTransform: 'none' | 'uppercase'
   background: 'none' | 'box'
   backgroundColor: string
+  fontWeight: 'normal' | 'bold'
+  fontStyle: 'normal' | 'italic'
+  shadow: boolean
+  shadowColor: string
+  shadowBlur: number
+  shadowOffsetX: number
+  shadowOffsetY: number
 }
 
 export const DEFAULT_SUBTITLE_STYLE: SubtitleStyle = {
@@ -22,6 +29,13 @@ export const DEFAULT_SUBTITLE_STYLE: SubtitleStyle = {
   textTransform: 'none',
   background: 'none',
   backgroundColor: 'rgba(0,0,0,0.6)',
+  fontWeight: 'bold',
+  fontStyle: 'normal',
+  shadow: false,
+  shadowColor: '#000000',
+  shadowBlur: 4,
+  shadowOffsetX: 2,
+  shadowOffsetY: 2,
 }
 
 export const FONT_OPTIONS = [
@@ -30,7 +44,22 @@ export const FONT_OPTIONS = [
   { value: 'Georgia', label: 'Georgia' },
   { value: 'Verdana', label: 'Verdana' },
   { value: 'Courier New', label: 'Courier' },
+  { value: 'Trebuchet MS', label: 'Trebuchet' },
+  { value: 'Comic Sans MS', label: 'Comic Sans' },
+  { value: 'Montserrat', label: 'Montserrat' },
+  { value: 'Poppins', label: 'Poppins' },
+  { value: 'Bebas Neue', label: 'Bebas Neue' },
+  { value: 'Oswald', label: 'Oswald' },
 ] as const
+
+export const BG_COLOR_PRESETS = [
+  'rgba(0,0,0,0.6)',
+  'rgba(0,0,0,0.8)',
+  'rgba(255,255,255,0.3)',
+  'rgba(255,0,0,0.4)',
+  'rgba(0,0,255,0.4)',
+  'rgba(128,0,128,0.4)',
+]
 
 export const FONT_SIZE_MAP: Record<SubtitleStyle['fontSize'], { canvas: number; label: string }> = {
   small: { canvas: 36, label: 'S' },

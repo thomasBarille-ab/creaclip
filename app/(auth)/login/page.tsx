@@ -43,8 +43,13 @@ export default function LoginPage() {
       })
 
       if (authError) {
-        toast.error(t('auth.login.invalidCredentials'))
-        setError(t('auth.login.wrongEmailPassword'))
+        if (authError.message === 'Email not confirmed') {
+          toast.error(t('auth.login.emailNotConfirmed', 'Please confirm your email first'))
+          setError(t('auth.login.emailNotConfirmedDetail', 'Check your inbox and click the confirmation link before logging in.'))
+        } else {
+          toast.error(t('auth.login.invalidCredentials'))
+          setError(t('auth.login.wrongEmailPassword'))
+        }
         return
       }
 

@@ -62,12 +62,17 @@
       "invalidCredentials": "Invalid credentials",
       "continueWithGoogle": "Continue with Google",
       "wrongEmailPassword": "Incorrect email or password",
+      "emailNotConfirmed": "Please confirm your email first",
+      "emailNotConfirmedDetail": "Check your inbox and click the confirmation link before logging in.",
       "enterEmail": "Please enter your email address",
       "enterPassword": "Please enter your password"
     },
     "signup": {
       "title": "Create an account",
       "subtitle": "Start creating clips in minutes",
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "enterName": "Please enter your name",
       "email": "Email",
       "emailPlaceholder": "you@example.com",
       "password": "Password",

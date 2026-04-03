@@ -9,6 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 import { AlertBanner, Button, Input, GoogleAuthButton, useToast } from '@/components/ui'
 
 export default function SignupPage() {
+  const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -20,6 +21,7 @@ export default function SignupPage() {
   const { t } = useTranslation()
 
   function validate(): string | null {
+    if (!fullName.trim()) return t('auth.signup.enterName', 'Please enter your name')
     if (!email.trim()) return t('auth.signup.enterEmail')
     if (password.length < 8) return t('auth.signup.passwordMinLength')
     if (password !== confirmPassword) return t('auth.signup.passwordMismatch')
@@ -44,7 +46,10 @@ export default function SignupPage() {
         email: email.trim(),
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/login`,
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          data: {
+            full_name: fullName.trim(),
+          },
         },
       })
 
@@ -54,9 +59,8 @@ export default function SignupPage() {
         return
       }
 
-      setSuccess(true)
       toast.success(t('auth.signup.toastSuccess'))
-      setTimeout(() => router.push('/login'), 4000)
+      router.push('/dashboard')
     } catch {
       setError(t('common.genericError'))
     } finally {
@@ -97,6 +101,17 @@ export default function SignupPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          <Input
+            id="fullName"
+            type="text"
+            label={t('auth.signup.name', 'Name')}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+            autoComplete="name"
+            placeholder={t('auth.signup.namePlaceholder', 'John Doe')}
+          />
+
           <Input
             id="email"
             type="email"

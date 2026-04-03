@@ -62,12 +62,17 @@
       "invalidCredentials": "Credenciales inválidas",
       "continueWithGoogle": "Continuar con Google",
       "wrongEmailPassword": "Email o contraseña incorrectos",
+      "emailNotConfirmed": "Por favor, confirme su email primero",
+      "emailNotConfirmedDetail": "Revise su bandeja de entrada y haga clic en el enlace de confirmación antes de iniciar sesión.",
       "enterEmail": "Por favor, introduzca su dirección de email",
       "enterPassword": "Por favor, introduzca su contraseña"
     },
     "signup": {
       "title": "Crear una cuenta",
       "subtitle": "Empiece a crear clips en pocos minutos",
+      "name": "Nombre",
+      "namePlaceholder": "Juan Pérez",
+      "enterName": "Por favor, introduzca su nombre",
       "email": "Email",
       "emailPlaceholder": "usted@ejemplo.com",
       "password": "Contraseña",

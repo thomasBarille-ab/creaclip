@@ -62,12 +62,17 @@
       "invalidCredentials": "Identifiants invalides",
       "continueWithGoogle": "Continuer avec Google",
       "wrongEmailPassword": "Email ou mot de passe incorrect",
+      "emailNotConfirmed": "Veuillez confirmer votre email d'abord",
+      "emailNotConfirmedDetail": "Vérifiez votre boîte mail et cliquez sur le lien de confirmation avant de vous connecter.",
       "enterEmail": "Veuillez entrer votre adresse email",
       "enterPassword": "Veuillez entrer votre mot de passe"
     },
     "signup": {
       "title": "Créer un compte",
       "subtitle": "Commencez à créer des clips en quelques minutes",
+      "name": "Pseudo",
+      "namePlaceholder": "Jean Dupont",
+      "enterName": "Veuillez entrer votre pseudo",
       "email": "Email",
       "emailPlaceholder": "vous@exemple.com",
       "password": "Mot de passe",

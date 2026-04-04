@@ -85,7 +85,7 @@ export default function DashboardPage() {
         .eq('id', session.user.id)
         .single(),
       supabase
-        .from('clips')
+        .from('clip_generations')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', session.user.id)
         .gte('created_at', firstOfMonth),

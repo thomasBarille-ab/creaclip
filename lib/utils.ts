@@ -11,8 +11,9 @@ export const ALLOWED_MIME_TYPES: Record<string, string[]> = {
   'video/mp4': ['.mp4'],
   'video/quicktime': ['.mov'],
   'video/x-msvideo': ['.avi'],
+  'video/mp2t': ['.mts', '.m2ts'],
 }
-export const ALLOWED_EXTENSIONS = ['.mp4', '.mov', '.avi']
+export const ALLOWED_EXTENSIONS = ['.mp4', '.mov', '.avi', '.mts', '.m2ts']
 
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) return '0 o'
